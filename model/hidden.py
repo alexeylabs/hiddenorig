@@ -79,7 +79,7 @@ class Hidden:
             # train on fake
             encoded_images, noised_images, decoded_messages = self.encoder_decoder(images, messages)
             d_on_encoded = self.discriminator(encoded_images.detach())
-            d_loss_on_encoded = self.bce_with_logits_loss(d_on_encoded, d_target_label_encoded)
+            d_loss_on_encoded = self.bce_with_logits_loss(d_on_encoded, d_target_label_encoded.float())
 
             d_loss_on_encoded.backward()
             self.optimizer_discrim.step()
@@ -88,7 +88,7 @@ class Hidden:
             self.optimizer_enc_dec.zero_grad()
             # target label for encoded images should be 'cover', because we want to fool the discriminator
             d_on_encoded_for_enc = self.discriminator(encoded_images)
-            g_loss_adv = self.bce_with_logits_loss(d_on_encoded_for_enc, g_target_label_encoded)
+            g_loss_adv = self.bce_with_logits_loss(d_on_encoded_for_enc, g_target_label_encoded.float())
 
             if self.vgg_loss == None:
                 g_loss_enc = self.mse_loss(encoded_images, images)
@@ -154,10 +154,10 @@ class Hidden:
             encoded_images, noised_images, decoded_messages = self.encoder_decoder(images, messages)
 
             d_on_encoded = self.discriminator(encoded_images)
-            d_loss_on_encoded = self.bce_with_logits_loss(d_on_encoded, d_target_label_encoded)
+            d_loss_on_encoded = self.bce_with_logits_loss(d_on_encoded, d_target_label_encoded.float())
 
             d_on_encoded_for_enc = self.discriminator(encoded_images)
-            g_loss_adv = self.bce_with_logits_loss(d_on_encoded_for_enc, g_target_label_encoded)
+            g_loss_adv = self.bce_with_logits_loss(d_on_encoded_for_enc, g_target_label_encoded.float())
 
             if self.vgg_loss is None:
                 g_loss_enc = self.mse_loss(encoded_images, images)
