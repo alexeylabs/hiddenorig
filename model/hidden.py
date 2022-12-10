@@ -73,7 +73,7 @@ class Hidden:
             g_target_label_encoded = torch.full((batch_size, 1), self.cover_label, device=self.device)
 
             d_on_cover = self.discriminator(images)
-            d_loss_on_cover = self.bce_with_logits_loss(d_on_cover, d_target_label_cover)
+            d_loss_on_cover = self.bce_with_logits_loss(d_on_cover, d_target_label_cover.float())
             d_loss_on_cover.backward()
 
             # train on fake
@@ -149,7 +149,7 @@ class Hidden:
             g_target_label_encoded = torch.full((batch_size, 1), self.cover_label, device=self.device)
 
             d_on_cover = self.discriminator(images)
-            d_loss_on_cover = self.bce_with_logits_loss(d_on_cover, d_target_label_cover)
+            d_loss_on_cover = self.bce_with_logits_loss(d_on_cover, d_target_label_cover.float())
 
             encoded_images, noised_images, decoded_messages = self.encoder_decoder(images, messages)
 
