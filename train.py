@@ -36,7 +36,7 @@ def train(model: Hidden,
     else:
         steps_in_epoch = file_count // train_options.batch_size + 1
 
-    print_each = 10
+    print_each = 500
     images_to_save = 8
     saved_images_size = (512, 512)
 
