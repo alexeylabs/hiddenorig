@@ -65,7 +65,7 @@ def main():
             validation_losses = {}
             for image, _ in tqdm(val_data):
                 image = image.to(device)
-                message = torch.Tensor(np.random.choice([0, 1], (image.shape[0], iga_config.message_length))).to(device)
+                message = torch.Tensor(np.random.choice([0, 1], (image.shape[0], hidden_config.message_length))).to(device)
                 losses, (encoded_images, noised_images, decoded_messages) = model.validate_on_batch([image, message])
                 if not validation_losses:  # dict is empty, initialize
                     for name in losses:
