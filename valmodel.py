@@ -9,8 +9,7 @@ import logging
 
 from model.hidden import Hidden
 from noise_argparser import NoiseArgParser
-from options import IGAConfiguration, TrainingOptions, HiDDenConfiguration
-from model.iga import IGA
+from options import TrainingOptions, HiDDenConfiguration
 from noise_layers.noiser import Noiser
 from average_meter import AverageMeter
 
